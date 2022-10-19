@@ -1,0 +1,21 @@
+# size
+size: 70 # resize image to this size
+
+# brightness params
+brightness_params:
+  thresh_dark: 0.3 # darkness threshold [0, 1]
+  thresh_bright: 0.8 # brightness threshold [0, 1]
+
+# uniform params
+uniform_params:
+  c_low_thresh: 100 # first threshold for the hysteresis procedure used in Canny filter [0, 255]
+  c_high_thresh: 200 # second threshold for the hysteresis procedure used in Canny filter [0, 255]
+  thresh: 0.5 # uniform threshold [0, 1]
+
+# blurring params 
+blur_params:
+  thresh: 50000 # blurring score threshold
+
+# noise params
+noise_params:
+  thresh: 200  # noise variance threshold
