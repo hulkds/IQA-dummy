@@ -1,7 +1,6 @@
 import cv2
 import numpy as np
 import math
-from scipy.signal import convolve2d
 
 def convert2Gray(image):
     """Function that verify the image dimension and convert image to grayscale if needed. 
@@ -93,12 +92,12 @@ def isBlur(image, thresh=200):
     
     return fm > thresh
 
-def isNoise(image, thresh=70):
+def isNoise(image, thresh=5):
     """Function that read image and compute the noise variance.
 
     Args:
         image (ndarray): image to evaluate.
-        thresh (int, optional): noise variance threshold. 
+        thresh (int, optional): noise variance threshold. Defauts to
 
     Returns:
         bool: True if noise variance of image is greater than noise threshold.
@@ -110,12 +109,12 @@ def isNoise(image, thresh=70):
     H, W = image.shape
 
     # define noise estimation operator
-    M = [[1, -2, 1],
+    M = np.array([[1, -2, 1],
         [-2, 4, -2],
-        [1, -2, 1]]
+        [1, -2, 1]])
 
     # compute the variance of noise in the given image
-    sigma = np.sum(np.sum(np.absolute(convolve2d(image, M))))
+    sigma = np.sum(np.sum(np.absolute(cv2.filter2D(src=image, ddepth=-1, kernel=M))))
     sigma = sigma * math.sqrt(0.5 * math.pi) / (6 * (W-2) * (H-2))
 
     return sigma > thresh
