@@ -60,7 +60,7 @@ def isUniform(image, c_low_thresh=100, c_high_thresh=200, thresh=0.5):
         bool: True if image is too uniform.
     """    
     # convert image to grayscale
-    image = convert2Gray(image)
+    image = convert2Gray(image) 
     
     # get the image area
     image_area = image.shape[0]*image.shape[1]
@@ -85,12 +85,14 @@ def isBlur(image, thresh=200):
         bool: True if image is too blur (blurring score is greater than blurring threshold).
     """    
     # convert image to grayscale
-    image = convert2Gray(image)
+    image = convert2Gray(image) 
 
     # apply Laplacian filter to estimate blurring score
-    fm = cv2.Laplacian(image, cv2.CV_64F).var()
+
+    edges = cv2.Laplacian(image, cv2.CV_64F)
+    fm = edges.var() / 255.
     
-    return fm > thresh
+    return fm < thresh
 
 def isNoise(image, thresh=5):
     """Function that read image and compute the noise variance.

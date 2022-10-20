@@ -19,8 +19,8 @@ coverage.xml
 .pytest_cache
 .hypothesis
 
-image/
+images/
 tmp/
-video/
+videos/
 .ipynb
 
